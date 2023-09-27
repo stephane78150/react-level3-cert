@@ -7,3 +7,7 @@ export function getLocalStorageValue(key: string): string | null {
 export function setLocalStorageValue(key: string, value: string): void {    
     window.localStorage.setItem(key, value);       
 }
+
+export function removeLocalStorageValue(key: string): void {    
+    window.localStorage.removeItem(key);       
+}

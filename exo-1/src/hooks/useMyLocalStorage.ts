@@ -1,10 +1,12 @@
 import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { subscribeWithCleanup, notifyExistingSubscriber } from "./subscribers";
-import { getLocalStorageValue, setLocalStorageValue } from "./local-storage";
+import { getLocalStorageValue, setLocalStorageValue, removeLocalStorageValue } from "./local-storage";
 
 type SetKeyValue = (val: string) => void;
 
-type MyLocalStorage = [string | null, SetKeyValue];
+type RemoveThisKey = () => void;
+
+type MyLocalStorage = [string | null, SetKeyValue, RemoveThisKey];
 
 export function useMyLocalStorage(key: string): MyLocalStorage {    
     const subscribeToStore = useMemo( () => (notifyMe: () => void) => subscribeWithCleanup(key)(notifyMe), [key]);        
@@ -15,6 +17,10 @@ export function useMyLocalStorage(key: string): MyLocalStorage {
         setLocalStorageValue(key, value)
         notifyExistingSubscriber(key);
     }, [key]);
+    const removeKey = useCallback(() => {
+        removeLocalStorageValue(key);
+        notifyExistingSubscriber(key);
+    }, [key]);
 
-    return [value, setKeyValue];
+    return [value, setKeyValue, removeKey];
 }

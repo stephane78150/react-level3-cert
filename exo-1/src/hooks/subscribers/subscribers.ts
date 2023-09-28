@@ -26,3 +26,7 @@ export function notifyExistingSubscriber(key: string) {
     subs.forEach(callback => callback());
 }
 
+export function notifyAllKeys(): void {
+    Object.values(subscribersPerKey).flat().forEach(callback => callback());
+}
+

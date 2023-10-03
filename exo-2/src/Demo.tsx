@@ -1,8 +1,15 @@
 import React, { useCallback } from "react";
 import { useDialogApi } from "./smart-dialog";
+import styled from "styled-components";
 
 
 const LoremIpsum = "Lorem ipsum lorem ipsum dolore sit Lorem ipsum lorem ipsum dolore sit Lorem ipsum lorem ipsum dolore sit Lorem ipsum lorem ipsum dolore sit Lorem ipsum lorem ipsum dolore sit Lorem ipsum lorem ipsum dolore sit Lorem ipsum lorem ipsum dolore sit Lorem ipsum lorem ipsum dolore sit Lorem ipsum lorem ipsum dolore sit Lorem ipsum lorem ipsum dolore sit Lorem ipsum lorem ipsum dolore sit ";
+
+const StyledImg = styled.img`
+    max-width: 100%;
+    max-height: 100%;
+    border: solid 1px black
+`;
 
 export const Demo: React.FC = () => {    
     const {openDialog, closeDialog} = useDialogApi();    
@@ -20,8 +27,8 @@ export const Demo: React.FC = () => {
             isModal: false, 
             onClose: () => alert('Closing modeless dialog'), 
             header: <h5>This is a <em>modeless</em> dialog</h5>, 
-            footer: <small>perform some actions here</small>, 
-            body: <p>{LoremIpsum}</p>  
+            footer: <small>in a real app, we would put some buttons here like 'Yes', 'Cancel'</small>, 
+            body: <StyledImg src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Route66_sign.jpg" alt="Some content here"/>
         })
     }, [openDialog]);
 

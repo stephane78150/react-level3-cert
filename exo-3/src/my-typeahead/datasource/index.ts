@@ -1,0 +1,1 @@
+export { searchWithStaticDataHof } from "./utils";

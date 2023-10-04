@@ -1,27 +1,19 @@
-# React + TypeScript + Vite
+# Typeahead
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+As shown in the demo, this component support various sources of static data and could be adapted easily to query dynamically if I had some free REST API to test it :-)
 
-Currently, two official plugins are available:
+### Rx.JS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+I choose to use RX.JS as it provides a lot of useful operator like 
+- `switchMap` to cancel the last http query when triggering a new search
+- `debounceTime` to wait until the user has finished typing 
 
-## Expanding the ESLint configuration
+I relied on a library (`observable-hooks`) to peform the "plumbing" that link react events system with RX.JS observable, it could have done manually by playing with the RX.JS subject
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Limitation
 
-- Configure the top-level `parserOptions` property like this:
+As it is not a production ready component, there is a few improvement that could be done : 
+- after selecting a value, there is no way to reset the state to perform another search
+- styling of search results could be improved
+- keyboard navigation to select the first result with enter, or use the arrow keys to navigate among results
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

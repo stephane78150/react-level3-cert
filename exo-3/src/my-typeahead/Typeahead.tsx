@@ -8,14 +8,14 @@ export type TypeaheadProps<T> = Readonly<{
   data: T[];
   idProperty: keyof T;
   labelProperty: keyof T;
-  onSelected: (selected: T) => void;
+  valueChange: (selected: T) => void;
 }>;
 
 export const Typeahead = <T extends object>({
   data,
   idProperty,
   labelProperty,
-  onSelected,
+  valueChange: onSelected,
 }: TypeaheadProps<T>) => {
   const items = useMemo(
     () =>

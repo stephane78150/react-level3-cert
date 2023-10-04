@@ -11,10 +11,10 @@ export const App: FC = () => {
         idProperty="code"
         labelProperty="name"
       >
-        Choose a country names sing the typeahead below (eg. type 'un')
+        Choose a country names sing the typeahead below (eg. type 'an')
       </SearchField>
       <SearchField data={listOfUsers} idProperty="id" labelProperty="name">
-        Choose a user name using the typeahead below (eg. type 'cle' or 'me')
+        Choose a user name using the typeahead below (eg. type 'cle')
       </SearchField>
       <SearchField data={listOfUsers} idProperty="id" labelProperty="email">
         Choose an email using the typeahead below (eg. type 'me' or 'biz')

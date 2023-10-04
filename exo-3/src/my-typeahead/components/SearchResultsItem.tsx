@@ -14,7 +14,7 @@ export const SearchResultItem: FC<SearchResultItemProps> = ({
   onSelected,
 }) => {
   const { label, id } = item;
-  const [before, highlighted, after] = useMemo(
+  const parts = useMemo(
     () => highlightText(label, highlightedText),
     [label, highlightedText],
   );
@@ -22,9 +22,7 @@ export const SearchResultItem: FC<SearchResultItemProps> = ({
 
   return (
     <div id={id} onClick={onClick}>
-      {before}
-      <strong>{highlighted}</strong>
-      {after}
+      {parts.map( ({isHighlighted, text}) => isHighlighted ? <strong key={text}>{text}</strong> : <span key={text}>{text}</span> )}
     </div>
   );
 };

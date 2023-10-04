@@ -23,7 +23,7 @@ export const SearchField = <T extends object>({
         <div className="row">
           <div className="col-6">
             <MyTypeahead<T>
-              onSelected={setSelected}
+              valueChange={setSelected}
               data={data}
               idProperty={idProperty}
               labelProperty={labelProperty}

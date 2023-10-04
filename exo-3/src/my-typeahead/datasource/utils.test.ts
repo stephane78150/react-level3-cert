@@ -9,7 +9,7 @@ describe("Filtering user names", () => {
     const results = filterUserNames("cLeMenTIne");
     const resultIds = results?.map((u) => u.id);
     const resultsLabels = results?.map((u) => u.name);
-    expect(resultIds).toEqual(["3"]);
+    expect(resultIds).toEqual([3]);
     expect(resultsLabels).toEqual(["Clementine Bauch"]);
   });
   it("should return many person when similar first name", () => {

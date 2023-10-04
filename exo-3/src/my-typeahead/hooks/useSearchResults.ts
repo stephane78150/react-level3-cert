@@ -1,8 +1,12 @@
 import { Observable, debounceTime, filter, switchMap } from "rxjs";
-import { SearchableItem } from "..";
 import { useObservableState } from "observable-hooks";
 import { useMemo } from "react";
 import { SearchInput } from "../components/SearchInput";
+
+export type SearchableItem = Readonly<{
+  id: string;
+  label: string;
+}>;
 
 export type SearchInput = string;
 

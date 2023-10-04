@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 import * as SUT from "./utils";
-import { listOfUserNames } from "../../api";
+import { listOfUsers } from "../../api";
+import { SearchableItem } from "../hooks/useSearchResults";
 
 describe("Filtering user names", () => {
-  const filterUserNames = SUT.filterWithStaticDataHof(listOfUserNames);
+  const filterUserNames = SUT.filterWithStaticDataHof(listOfUsers.map(u => ({id: u.id.toString(), label: u.name} as SearchableItem)));
 
   it("should find specific match without considering case", () => {
     const results = filterUserNames("cLeMenTIne");

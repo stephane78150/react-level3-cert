@@ -1,6 +1,6 @@
 import { FC, useCallback, useMemo } from "react";
-import { SearchableItem } from "../Typeahead";
 import { highlightText } from "./utils";
+import { SearchableItem } from "../hooks/useSearchResults";
 
 type SearchResultItemProps = Readonly<{
   item: SearchableItem;

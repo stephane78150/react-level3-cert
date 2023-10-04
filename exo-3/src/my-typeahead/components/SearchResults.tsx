@@ -1,7 +1,7 @@
 import React from "react";
-import { SearchableItem } from "..";
 import { SearchResultItem } from "./SearchResultsItem";
 import { styled } from "styled-components";
+import { SearchableItem } from "../hooks/useSearchResults";
 
 type SearchResultsProps = Readonly<{
   currentResults: SearchableItem[];

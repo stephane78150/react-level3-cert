@@ -1,6 +1,5 @@
 import { Observable, of } from "rxjs";
-import { SearchableItem } from "..";
-import { SearchState } from "../hooks/useSearchResults";
+import { SearchState, SearchableItem } from "../hooks/useSearchResults";
 
 const MIN_SEARCH_CHAR_COUNT = 2;
 const MAX_SEARCH_RESULTS = 5;

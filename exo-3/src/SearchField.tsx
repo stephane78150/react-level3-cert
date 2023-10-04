@@ -1,15 +1,14 @@
 import { PropsWithChildren, useState } from "react";
 import { MyTypeahead } from "./my-typeahead";
+import { SearchFunction } from "./my-typeahead/hooks/useSearchResults";
 
 type SearchFieldProps<T> = Readonly<{
-  data: T[];
-  idProperty: keyof T;
+  data: T[] | SearchFunction<T>;  
   labelProperty: keyof T;
 }>;
 
 export const SearchField = <T extends object>({
-  data,
-  idProperty,
+  data,  
   labelProperty,
   children,
 }: PropsWithChildren<SearchFieldProps<T>>) => {
@@ -25,7 +24,6 @@ export const SearchField = <T extends object>({
             <MyTypeahead<T>
               valueChange={setSelected}
               data={data}
-              idProperty={idProperty}
               labelProperty={labelProperty}
             />
           </div>
@@ -33,8 +31,6 @@ export const SearchField = <T extends object>({
             <div className="col-6">
               <label htmlFor="SelectedValue">Selected value:</label>
               <label id="SelectedValue" className="ms-3">
-                <strong title="Id">{`${selected?.[idProperty]}`}</strong>
-                <span className="mx-1">/</span>
                 <em title="label">{`${selected?.[labelProperty]}`}</em>
               </label>
               <div>

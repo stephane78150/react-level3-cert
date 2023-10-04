@@ -19,7 +19,7 @@ export const TextValueEditor: React.FC<TextEditorProps> =  ({value: originalValu
             onSave(newValue);
         }
         setEdited(null);        
-    }, [onSave])
+    }, [onSave, originalValue])
 
     const displayedValue = useMemo(() => edited ?? originalValue ?? '', [edited, originalValue]);    
     const editing = edited !== null;

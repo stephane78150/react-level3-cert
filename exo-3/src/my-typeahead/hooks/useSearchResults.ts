@@ -10,46 +10,37 @@ export type SearchableItem = Readonly<{
 
 export type SearchInput = string;
 
-export type SearchResults = SearchableItem[];
+export type SearchResults<T> = T[];
 
-export type SearchState = {
+export type SearchState<T> = {
   searchedText: string;
-  currentResults: SearchResults;
+  currentResults: SearchResults<T>;
 };
 
-export type SearchFunction = (
+export type SearchFunction<T> = (
   candidate: SearchInput,
-) => Observable<SearchState>;
+) => Observable<SearchState<T>>;
 
 type UpdateSearchInput = (input: SearchInput) => void;
 
-type ReactiveSearchCallback = (
-  searchInput$: Observable<SearchInput>,
-  previousState: SearchState,
-) => Observable<SearchState>;
-
-const makeReactiveCallbackHof: (
-  search: SearchFunction,
-) => ReactiveSearchCallback =
-  (search) =>
-  (searching$, { searchedText: previousSearchedText }) => {
+const makeReactiveCallbackHof = <T extends object>
+  (search : SearchFunction<T>) =>
+  (searching$:  Observable<SearchInput>, previous : SearchState<T>)   => {
     return searching$.pipe(
-      filter((candidate) => candidate !== previousSearchedText),
+      filter((candidate) => candidate !== previous.searchedText),
       debounceTime(300),
       switchMap((searchedText) => search(searchedText)),
-    );
+    ) as Observable<SearchState<T>>;
   };
 
-const initialState: SearchState = { searchedText: "", currentResults: [] };
-
-export function useSearchResults(
-  search: SearchFunction,
-): [SearchState, UpdateSearchInput] {
+export function useSearchResults<T extends object>(
+  search: SearchFunction<T>,
+): [SearchState<T>, UpdateSearchInput] {
   const doSearch = useMemo(() => makeReactiveCallbackHof(search), [search]);
   const [searchState, triggerSearch] = useObservableState<
-    SearchState,
+    SearchState<T>,
     SearchInput
-  >(doSearch, initialState);
+  >(doSearch, { searchedText: "", currentResults: [] });
 
   return [searchState, triggerSearch];
 }

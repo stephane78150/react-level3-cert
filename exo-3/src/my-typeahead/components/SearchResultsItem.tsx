@@ -1,28 +1,30 @@
-import { FC, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { highlightText } from "./utils";
-import { SearchableItem } from "../hooks/useSearchResults";
 
-type SearchResultItemProps = Readonly<{
-  item: SearchableItem;
+type SearchResultItemProps<T> = Readonly<{
+  item: T;
   highlightedText: string;
-  onSelected: (item: SearchableItem) => void;
+  onSelected: (item: T) => void;
+  labelProperty: keyof T;
 }>;
 
-export const SearchResultItem: FC<SearchResultItemProps> = ({
+export const SearchResultItem = <T extends object> ({
   highlightedText,
   item,
   onSelected,
-}) => {
-  const { label, id } = item;
+  labelProperty,
+}: SearchResultItemProps<T>) => {  
   const parts = useMemo(
-    () => highlightText(label, highlightedText),
-    [label, highlightedText],
+    () => {
+      const label = `${item[labelProperty]}`;
+      return highlightText(label, highlightedText);
+    },[item, highlightedText, labelProperty],
   );
   const onClick = useCallback(() => onSelected(item), [onSelected, item]);
 
   return (
-    <div id={id} onClick={onClick}>
-      {parts.map( ({isHighlighted, text}) => isHighlighted ? <strong key={text}>{text}</strong> : <span key={text}>{text}</span> )}
+    <div onClick={onClick}>
+      {parts.map( ({isHighlighted, text}, idx) => isHighlighted ? <strong key={idx}>{text}</strong> : <span key={idx}>{text}</span> )}
     </div>
   );
 };

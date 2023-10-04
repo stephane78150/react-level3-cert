@@ -17,7 +17,7 @@ const renderCount = useRenderCount();
 const deleteMe = useCallback(() => {
      onDelete(keyName);
      removeKey();
-}, [keyName]);
+}, [keyName, removeKey, onDelete]);
 const id = `editkey_${keyName}`;
 
 return (<div  className={classNames("row align-items-center", className)}>                

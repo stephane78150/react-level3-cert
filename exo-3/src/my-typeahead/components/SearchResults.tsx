@@ -1,32 +1,32 @@
-import React from "react";
 import { SearchResultItem } from "./SearchResultsItem";
 import { styled } from "styled-components";
-import { SearchableItem } from "../hooks/useSearchResults";
 
-type SearchResultsProps = Readonly<{
-  currentResults: SearchableItem[];
+type SearchResultsProps<T> = Readonly<{
+  currentResults: T[];
   searchedText: string;
-  onSelected: (item: SearchableItem) => void;
+  onSelected: (item: T) => void;
+  labelProperty: keyof T;
 }>;
 
 const StyledDiv = styled.div`
   border: solid 1px lightgray;
-  width: 15em;
 `;
 
-export const SearchResults: React.FC<SearchResultsProps> = ({
+export const SearchResults = <T extends object> ({
   currentResults,
   searchedText,
   onSelected,
-}) => {
+  labelProperty
+}: SearchResultsProps<T>) => {
   if (currentResults.length === 0) {
     return null;
   }
   return (
     <StyledDiv>
-      {currentResults?.map((item) => (
+      {currentResults?.map((item, idx) => (
         <SearchResultItem
-          key={item.id}
+          key={idx}
+          labelProperty={labelProperty}          
           item={item}
           highlightedText={searchedText}
           onSelected={onSelected}

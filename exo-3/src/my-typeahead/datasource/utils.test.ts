@@ -1,15 +1,14 @@
 import { describe, expect, it } from "vitest";
 import * as SUT from "./utils";
 import { listOfUsers } from "../../api";
-import { SearchableItem } from "../hooks/useSearchResults";
 
 describe("Filtering user names", () => {
-  const filterUserNames = SUT.filterWithStaticDataHof(listOfUsers.map(u => ({id: u.id.toString(), label: u.name} as SearchableItem)));
+  const filterUserNames = SUT.filterWithStaticDataHof(listOfUsers, 'name');
 
   it("should find specific match without considering case", () => {
     const results = filterUserNames("cLeMenTIne");
     const resultIds = results?.map((u) => u.id);
-    const resultsLabels = results?.map((u) => u.label);
+    const resultsLabels = results?.map((u) => u.name);
     expect(resultIds).toEqual(["3"]);
     expect(resultsLabels).toEqual(["Clementine Bauch"]);
   });

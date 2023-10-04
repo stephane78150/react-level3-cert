@@ -10,7 +10,7 @@ export type ReadItemProps = Readonly<{
 }>
 
 export const ReadItem:  FC<ReadItemProps> = ({keyName, className}) => {
-    const [value, _] = useMyLocalStorage(keyName);    
+    const [value] = useMyLocalStorage(keyName);    
     const renderCount = useRenderCount();    
     const id = `showkey_${keyName}`;
 

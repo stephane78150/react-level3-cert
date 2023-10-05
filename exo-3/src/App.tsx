@@ -7,7 +7,9 @@ export const App: FC = () => {
     <div className="container-fluid p-5">
       <h1 className="mb-5">Exercise 3 : typeahead</h1>
       <SearchField<University> data={searchUniversities} labelProperty="name">
-        Choose an university name (eg. type 'mit') <span className="badge bg-success rounded-pill" title="http://universities.hipolabs.com/search?country=United+States">AJAX</span>
+        Choose an university name (eg. type 'mit') 
+        <span className="badge bg-success rounded-pill" title="http://universities.hipolabs.com/search?country=United+States">AJAX</span>
+        <span className="badge bg-danger rounded-pill" title="works in local dev, but not when deployed due to cors :-(">CORS</span>
       </SearchField>
       <SearchField
         data={listOfCountries}
